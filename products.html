@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetroVintage Garage | Products</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1b1b1b;
+      --accent: #f0b35a;
+      --accent-dark: #c8892b;
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #2b1b13 0, #050505 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      border-bottom: 1px solid #2b2b2b;
+      background: rgba(5, 5, 5, 0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Playfair Display", serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .logo-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #111;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .page-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 430px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid #333;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .chip.active {
+      border-color: var(--accent);
+      color: #111;
+      background: var(--accent);
+    }
+
+    .grid-products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+
+    .product-card {
+      background: rgba(0, 0, 0, 0.78);
+      border-radius: 18px;
+      border: 1px solid #262626;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    .product-badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+    }
+
+    .product-name {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .product-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .product-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.25rem;
+    }
+
+    .product-price {
+      font-size: 0.95rem;
+    }
+
+    .product-price span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .product-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #aaaaaa;
+    }
+
+    .product-footer {
+      margin-top: 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-small {
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .btn-small:hover {
+      background: var(--accent);
+      color: #111;
+    }
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 1.25rem 1.25rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    @media (max-width: 960px) {
+      .grid-products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-products {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="logo">
+        <div class="logo-badge">RV</div>
+        <div>Retro<span>Vintage</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="payments.html">Payments</a>
+      </div>
+      <a href="payments.html" class="nav-cta">Go to Payment</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Garage Inventory</h1>
+        <p class="page-sub">
+          Short-list your favorite bikes from our current lineup. Once you’ve
+          decided, continue to the Payments page to reserve your machine.
+        </p>
+      </div>
+      <div class="filters">
+        <span class="chip active">All</span>
+        <span class="chip">Royal Enfield</span>
+        <span class="chip">Yamaha</span>
+        <span class="chip">Honda</span>
+        <span class="chip">Two-stroke</span>
+      </div>
+    </div>
+
+    <section class="grid-products">
+      <!-- Product 1 -->
+      <article class="product-card">
+        <div class="product-badge">Classic Vintage</div>
+        <h2 class="product-name">Royal Enfield Bullet 350</h2>
+        <p class="product-meta">1998 · Single-owner · Original paint</p>
+        <div class="product-price-row">
+          <div class="product-price">₹1.25L <span>approx.</span></div>
+          <div class="product-tag">City: Hyderabad</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-BUL-98</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card">
+        <div class="product-badge">Retro Custom</div>
+        <h2 class="product-name">Yamaha RX 135</h2>
+        <p class="product-meta">2000 · 2-stroke · Performance tuned</p>
+        <div class="product-price-row">
+          <div class="product-price">₹95K <span>approx.</span></div>
+          <div class="product-tag">City: Bangalore</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-RX-00</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card">
+        <div class="product-badge">Collector Series</div>
+        <h2 class="product-name">Jawa 250</h2>
+        <p class="product-meta">1984 · Restored · Dual exhaust</p>
+        <div class="product-price-row">
+          <div class="product-price">₹1.6L <span>approx.</span></div>
+          <div class="product-tag">City: Pune</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-JAWA-84</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card">
+        <div class="product-badge">Neo Retro</div>
+        <h2 class="product-name">Honda CB Unicorn</h2>
+        <p class="product-meta">2007 · Smooth commuter · Clean engine</p>
+        <div class="product-price-row">
+          <div class="product-price">₹68K <span>approx.</span></div>
+          <div class="product-tag">City: Chennai</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-CBU-07</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+
+      <!-- Product 5 -->
+      <article class="product-card">
+        <div class="product-badge">Garage Special</div>
+        <h2 class="product-name">Hero Honda Splendor</h2>
+        <p class="product-meta">2005 · Daily rider · Excellent mileage</p>
+        <div class="product-price-row">
+          <div class="product-price">₹42K <span>approx.</span></div>
+          <div class="product-tag">City: Hyderabad</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-SPL-05</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+
+      <!-- Product 6 -->
+      <article class="product-card">
+        <div class="product-badge">Project Bike</div>
+        <h2 class="product-name">Custom Cafe Racer</h2>
+        <p class="product-meta">Base: 150cc · In-progress build</p>
+        <div class="product-price-row">
+          <div class="product-price">₹80K <span>approx.</span></div>
+          <div class="product-tag">City: Online only</div>
+        </div>
+        <div class="product-footer">
+          <span>Ref ID: RV-CAFE-X</span>
+          <a href="payments.html" class="btn-small">Reserve Now</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> RetroVintage Garage.</span>
+      <span>Inventory shown is for demo only.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
